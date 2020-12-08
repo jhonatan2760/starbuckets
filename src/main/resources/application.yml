@@ -1,0 +1,7 @@
+server:
+  port: 9090
+
+feature:
+  toggle:
+    age: "29"
+
