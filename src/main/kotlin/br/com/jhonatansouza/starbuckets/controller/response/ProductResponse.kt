@@ -1,3 +1,3 @@
 package br.com.jhonatansouza.starbuckets.controller.response
 
-data class ProductResponse(val name: String)
+data class ProductResponse(val name: String, val price: Double, val description: String)
