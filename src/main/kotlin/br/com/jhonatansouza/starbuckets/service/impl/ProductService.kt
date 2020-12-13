@@ -8,4 +8,6 @@ interface ProductService {
 
     fun findByName(name: String): Product?
 
+    fun deleteByName(name: String)
+
 }

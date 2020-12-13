@@ -2,10 +2,11 @@ package br.com.jhonatansouza.starbuckets.controller.request
 
 import br.com.jhonatansouza.starbuckets.model.Product
 
-data class ProductRequest(val name: String,
-                          val price: Double,
-                          val description: String) {
+data class ProductRequest(val id: Long,
+                          val name: String,
+                          val price: Double
+) {
 
-    fun toModel() = Product(name = this.name, price = this.price, description = this.description)
+    fun toModel() = Product(id = this.id, name = this.name, price = this.price)
 
 }

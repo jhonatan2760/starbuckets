@@ -19,11 +19,18 @@ class ProductController(private val serviceImpl: ProductServiceImpl,
     }
 
     @GetMapping("/get/product/{name}")
-    fun getProduct(@RequestBody request: ProductRequest,
-    @PathVariable name: String): ResponseEntity<ProductResponse> {
-        serviceImpl.findByName(name = String())
+    fun getProduct(@PathVariable name: String): ResponseEntity<ProductResponse> {
+        serviceImpl.findByName(name)
         return ResponseEntity.ok(productResponse)
     }
+
+    @DeleteMapping("/delete/product/{name}")
+    fun deleteProduct(@RequestBody request: ProductRequest,
+    @PathVariable name: String){
+        serviceImpl.deleteByName(name)
+
+    }
+
 
 
 }
