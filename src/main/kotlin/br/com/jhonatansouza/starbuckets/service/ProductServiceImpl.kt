@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 
     override fun findById(id: Long): Product? = productRepository.findById(id)
 
-    override fun deleteById(product: Product): Unit = productRepository.delete(product)
+    override fun deleteById(id: Long): Unit = productRepository.delete(product)
 
     override fun updateProduct(product: Product): Product = productRepository.update(product)
 
