@@ -4,10 +4,11 @@ import br.com.jhonatansouza.starbuckets.model.Product
 
 interface ProductService {
 
-    fun persist(product: Product): Product
+    fun persistProduct(product: Product): Product
 
-    fun findByName(name: String): Product?
+    fun findById(id: Long): Product?
 
-    fun deleteByName(name: String)
+    fun updateProduct(product: Product): Product
 
+    fun deleteById(product: Product)
 }

@@ -5,6 +5,9 @@ import org.springframework.data.mongodb.repository.MongoRepository
 
 interface ProductRepository : MongoRepository<Product, String> {
 
-    fun findByName(name: String):Product
-    abstract fun delete(id: Long)
+    fun findById(id: Long): Product
+
+
+
+
 }
