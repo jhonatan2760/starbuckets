@@ -21,7 +21,7 @@ class ProductController(private val serviceImpl: ProductServiceImpl,
     }
 
     @GetMapping("/get/product/{name}")
-    fun getProduct(@PathVariable id: Long): ResponseEntity<ProductResponse> {
+    fun getProduct(@PathVariable id: Long): ResponseEntity<ProductResponse?> {
         serviceImpl.getById(id)
         return ResponseEntity.ok(productResponse)
     }
