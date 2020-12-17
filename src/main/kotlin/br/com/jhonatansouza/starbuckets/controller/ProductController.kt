@@ -7,6 +7,7 @@ import br.com.jhonatansouza.starbuckets.service.ProductServiceImpl
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 class ProductController(private val serviceImpl: ProductServiceImpl,
@@ -15,28 +16,28 @@ class ProductController(private val serviceImpl: ProductServiceImpl,
 
     @PostMapping("/api/v1/product")
     fun createProduct(@RequestBody request: ProductRequest): ResponseEntity<ProductResponse> {
-        this.serviceImpl.persistProduct(product)
+        serviceImpl.persistProduct(product)
         return ResponseEntity.ok(productResponse)
     }
 
     @GetMapping("/get/product/{name}")
     fun getProduct(@PathVariable id: Long): ResponseEntity<ProductResponse> {
-        this.serviceImpl.findById(id)
+        serviceImpl.getById(id)
         return ResponseEntity.ok(productResponse)
     }
 
-    @DeleteMapping("/delete/product/{name}")
-    fun deleteProduct(@RequestBody request: ProductRequest,
-                      @PathVariable id: Long): ResponseEntity<Unit> {
-        this.serviceImpl.deleteById(id)
+    @DeleteMapping("/delete/product/{id}")
+    fun deleteProduct(@PathVariable id: Long): ResponseEntity<Unit> {
+        serviceImpl.deleteById(id, product)
         return ResponseEntity.ok(Unit)
     }
 
     @PutMapping("/update/product/{id}")
-    fun updateProduct(@PathVariable id: Long,
-                      @RequestBody request: ProductRequest): ResponseEntity<ProductResponse> {
-        serviceImpl.updateProduct(product)
-        return ResponseEntity.ok(productResponse)
+    fun updateProduct(@RequestBody request: ProductRequest,
+    @PathVariable id: Long): ResponseEntity<Unit> {
+    serviceImpl.deleteById(id, product)
+    serviceImpl.persistProduct(product)
+    return ResponseEntity.ok(Unit)
     }
 
 }

@@ -8,16 +8,24 @@ import org.springframework.stereotype.Service
 @Service
 
 
- class ProductServiceImpl(val productRepository: ProductRepository, val product: Product) : ProductService {
+ class ProductServiceImpl(val productRepository: ProductRepository) : ProductService {
 
-    override fun persistProduct(product: Product): Product = productRepository.save(product)
+    override fun persistProduct(product: Product) {
+        productRepository.save(product)
+    }
 
-    override fun findById(id: Long): Product? = productRepository.findById(id)
+    override fun getById(id: Long): Product? {
+       return productRepository.findById(id)
+    }
 
-    override fun deleteById(id: Long): Unit = productRepository.delete(product)
+    override fun deleteById(id: Long, product: Product){
+        productRepository.delete(product)
+    }
 
-    override fun updateProduct(product: Product): Product = productRepository.update(product)
-
+    override fun updateProduct(id: Long, product: Product) {
+        deleteById(id, product)
+        persistProduct(product)
+    }
 
 }
 
