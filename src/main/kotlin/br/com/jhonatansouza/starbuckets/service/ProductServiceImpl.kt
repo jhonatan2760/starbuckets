@@ -3,6 +3,7 @@ package br.com.jhonatansouza.starbuckets.service
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.repositories.ProductRepository
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
 @Service

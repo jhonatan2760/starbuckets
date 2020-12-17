@@ -11,8 +11,8 @@ import java.util.*
 
 @RestController
 class ProductController(private val serviceImpl: ProductServiceImpl,
-                        private val product: Product,
-                        private val productResponse: ProductResponse) {
+                        private val productResponse: ProductResponse,
+                        private val product: Product) {
 
     @PostMapping("/api/v1/product")
     fun createProduct(@RequestBody request: ProductRequest): ResponseEntity<ProductResponse> {
@@ -34,10 +34,9 @@ class ProductController(private val serviceImpl: ProductServiceImpl,
 
     @PutMapping("/update/product/{id}")
     fun updateProduct(@RequestBody request: ProductRequest,
-    @PathVariable id: Long): ResponseEntity<Unit> {
-    serviceImpl.deleteById(id, product)
-    serviceImpl.persistProduct(product)
-    return ResponseEntity.ok(Unit)
+                      @PathVariable id: Long): ResponseEntity<Unit> {
+        serviceImpl.updateProduct(id, product)
+        return ResponseEntity.ok(Unit)
     }
 
 }

@@ -1,6 +1,7 @@
 package br.com.jhonatansouza.starbuckets.service.impl
 
 import br.com.jhonatansouza.starbuckets.model.Product
+import org.springframework.http.HttpStatus
 
 interface ProductService {
 
