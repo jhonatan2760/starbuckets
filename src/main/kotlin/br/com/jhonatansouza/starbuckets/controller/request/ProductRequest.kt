@@ -2,7 +2,7 @@ package br.com.jhonatansouza.starbuckets.controller.request
 
 import br.com.jhonatansouza.starbuckets.model.Product
 
-data class ProductRequest(val id: Long,
+data class ProductRequest(val id: String,
                           val name: String,
                           val price: Double
 ) {
