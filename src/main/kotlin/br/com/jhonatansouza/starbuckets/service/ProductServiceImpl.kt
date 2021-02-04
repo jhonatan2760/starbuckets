@@ -9,6 +9,7 @@ import java.util.Optional as Optional
 
 @Service
 
+
  class ProductServiceImpl (val productRepository: ProductRepository) : ProductService {
 
     override fun persistProduct(product: Product) {

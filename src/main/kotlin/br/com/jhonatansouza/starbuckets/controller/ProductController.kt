@@ -4,14 +4,19 @@ import br.com.jhonatansouza.starbuckets.controller.request.ProductRequest
 import br.com.jhonatansouza.starbuckets.controller.response.ProductResponse
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.service.ProductServiceImpl
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Bean
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("starbucks")
+@RequestMapping("starbuckets")
 class ProductController(private val serviceImpl: ProductServiceImpl,
-                        private val productResponse: ProductResponse,
                         private val product: Product) {
+
+    @Autowired
+    lateinit var productResponse: ProductResponse
+
 
     @PostMapping("/api/v1/product")
     fun createProduct(@RequestBody productRequest: ProductRequest): ResponseEntity<ProductResponse> {
@@ -19,7 +24,7 @@ class ProductController(private val serviceImpl: ProductServiceImpl,
         return ResponseEntity.ok(productResponse)
     }
 
-    @GetMapping("/get/product/{name}")
+    @GetMapping("/get/product/{id}")
     fun getProduct(@PathVariable id: String): ResponseEntity<ProductResponse?> {
         serviceImpl.getById(id)
         return ResponseEntity.ok(productResponse)
