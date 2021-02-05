@@ -1,34 +1,46 @@
 package br.com.jhonatansouza.starbuckets.service
 
 import br.com.jhonatansouza.starbuckets.model.Product
-import br.com.jhonatansouza.starbuckets.repositories.ProductRepository
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
-import org.springframework.stereotype.Service
-import java.util.*
-import java.util.Optional as Optional
+import org.springframework.stereotype.Component
+import java.util.concurrent.ConcurrentHashMap
 
-@Service
+@Component
+class ProductServiceImpl: ProductService {
 
+    companion object {
+        val initialProductResponse = arrayOf(
+                Product(1, "Café", "café tradicional", 2.50),
+                Product(2, "Café gelado", "Café tradicional gelado", 2.50),
+                Product(3,"chá","chá mate",3.00),
+                Product(4,"Café c/ leite","café tradicional com leite quente", 5.00)
 
- class ProductServiceImpl (val productRepository: ProductRepository) : ProductService {
+        )
+    }
+    var products =
+            ConcurrentHashMap<Long, Product>(initialProductResponse.associateBy(Product::id))
 
-    override fun persistProduct(product: Product) {
-        productRepository.save(product)
+    override fun create(product: Product) {
+        products[product.id] = product
     }
 
-    override fun getById(id: String): Optional<Product> {
-       return productRepository.findById(id)
+    override fun delete(id: Long) {
+         products.remove(id)
     }
 
-    override fun deleteById(id: String, product: Product){
-        productRepository.delete(product)
+    override fun getById(id: Long): Product? {
+        return products[id]
     }
 
-    override fun updateProduct(id: String, product: Product) {
-        deleteById(id, product)
-        persistProduct(product)
+    override fun update(id: Long, product: Product) {
+        delete(id)
+        create(product)
+    }
+
+    override fun serchByName(name: String): List<Product>{
+       return products.filter {
+            it.value.name.contains(name, true)
+        }.map(Map.Entry<Long, Product>::value).toList()
     }
 
 }
-
-

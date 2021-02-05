@@ -4,13 +4,14 @@ import br.com.jhonatansouza.starbuckets.model.Product
 import java.util.*
 
 interface ProductService {
+    fun create(product: Product)
 
-    fun persistProduct(product: Product)
+    fun delete(id: Long)
 
-    fun getById(id: String): Optional<Product>
+    fun getById(id: Long): Product?
 
-    fun deleteById(id: String, product: Product)
+    fun update(id: Long, product: Product)
 
-    fun updateProduct(id: String, product: Product)
+    fun serchByName(name: String): List<Product>
 
 }
