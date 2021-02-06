@@ -14,7 +14,6 @@ class ProductServiceImpl: ProductService {
                 Product(2, "Café gelado", "Café tradicional gelado", 2.50),
                 Product(3,"chá","chá mate",3.00),
                 Product(4,"Café c/ leite","café tradicional com leite quente", 5.00)
-
         )
     }
     var products =
