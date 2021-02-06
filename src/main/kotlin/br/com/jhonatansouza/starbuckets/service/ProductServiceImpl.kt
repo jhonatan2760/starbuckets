@@ -3,9 +3,10 @@ package br.com.jhonatansouza.starbuckets.service
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
 import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import java.util.concurrent.ConcurrentHashMap
 
-@Component
+@Service
 class ProductServiceImpl: ProductService {
 
     companion object {

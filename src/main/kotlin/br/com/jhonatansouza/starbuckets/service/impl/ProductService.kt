@@ -1,9 +1,9 @@
 package br.com.jhonatansouza.starbuckets.service.impl
 
 import br.com.jhonatansouza.starbuckets.model.Product
-import java.util.*
 
 interface ProductService {
+
     fun create(product: Product)
 
     fun delete(id: Long)

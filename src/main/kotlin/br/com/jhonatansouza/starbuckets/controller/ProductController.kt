@@ -4,19 +4,15 @@ import br.com.jhonatansouza.starbuckets.exception.ProductException
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.model.RespostaJson
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 
 @RestController
 @RequestMapping("/product")
-class ProductController() {
+class ProductController(private var productService: ProductService) {
 
-    @Autowired
-    lateinit var productService: ProductService
 
     @GetMapping("/{id}")
     fun getByid(@PathVariable id: Long): ResponseEntity<Product?> {
@@ -54,16 +50,6 @@ class ProductController() {
             status = HttpStatus.ACCEPTED
         }
         return ResponseEntity(Unit, status)
-    }
-
-    @GetMapping()
-    fun getAll(@RequestParam(required = false, defaultValue = "") localFilter: String): ResponseEntity<List<Product>>{
-        var status = HttpStatus.OK
-        val productList = productService.serchByName(localFilter)
-        if (productList.size == 0){
-            status = HttpStatus.NOT_FOUND
-        }
-        return ResponseEntity(productList, status)
     }
 
 }
