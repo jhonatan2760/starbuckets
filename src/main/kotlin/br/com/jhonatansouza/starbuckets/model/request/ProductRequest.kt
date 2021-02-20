@@ -1,6 +1,4 @@
-package br.com.jhonatansouza.starbuckets.controller.request
-
-import br.com.jhonatansouza.starbuckets.model.Product
+package br.com.jhonatansouza.starbuckets.model.request
 
 data class ProductRequest(val id: Long,
                           val name: String,

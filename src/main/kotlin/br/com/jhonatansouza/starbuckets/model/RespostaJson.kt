@@ -5,4 +5,4 @@ import java.util.*
 
 data class RespostaJson(val message: String = "",
                         @JsonFormat(pattern = "dd,MM,yyyy")
-                        var dataHora: Date)
+                        var date: Date)

@@ -1,8 +1,6 @@
-package br.com.jhonatansouza.starbuckets.service
+package br.com.jhonatansouza.starbuckets.service.impl
 
 import br.com.jhonatansouza.starbuckets.model.Product
-import br.com.jhonatansouza.starbuckets.service.impl.ProductService
-import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import java.util.concurrent.ConcurrentHashMap
 
