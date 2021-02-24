@@ -16,8 +16,7 @@ class ProductController(private var productService: ProductService) {
 
     @GetMapping("/{id}")
     fun getByid(@PathVariable id: Long): ResponseEntity<Product?> {
-        var product = productService.getById(id) ?:
-                throw ProductException("product ${id} not found")
+        var product = productService.getById(id) ?: throw ProductException("product ${id} not found")
         return ResponseEntity(product, HttpStatus.OK)
     }
 
@@ -53,16 +52,13 @@ class ProductController(private var productService: ProductService) {
         return ResponseEntity(Unit, status)
     }
 
-     fun valida(product: Product){
+    fun valida(product: Product) {
         if (product.name.isEmpty())
             throw ProductException(message = "value cannot be empty")
 
-         if(product.price <= 0.99)
-             throw ProductException(
-                 message = "price cannot be less than 1 real"
-             )
+        if (product.price <= 0.99)
+            throw ProductException(message = "price cannot be less than 1 real")
     }
-
 
 
 }
