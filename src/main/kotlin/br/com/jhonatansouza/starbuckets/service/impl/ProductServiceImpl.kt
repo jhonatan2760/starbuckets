@@ -34,11 +34,4 @@ class ProductServiceImpl: ProductService {
         delete(id)
         create(product)
     }
-
-    override fun serchByName(name: String): List<Product>{
-       return products.filter {
-            it.value.name.contains(name, true)
-        }.map(Map.Entry<Long, Product>::value).toList()
-    }
-
 }

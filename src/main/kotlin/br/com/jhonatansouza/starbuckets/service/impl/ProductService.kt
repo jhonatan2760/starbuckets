@@ -13,6 +13,4 @@ interface ProductService {
 
     fun update(id: Long, product: Product)
 
-    fun serchByName(name: String): List<Product>
-
 }

@@ -23,6 +23,7 @@ class ProductController(private var productService: ProductService) {
 
     @PostMapping()
     fun create(@RequestBody product: Product): ResponseEntity<RespostaJson> {
+        valida(product)
         productService.create(product)
         HttpStatus.CREATED
         val respostaJson = RespostaJson("OK", Date())
@@ -51,5 +52,17 @@ class ProductController(private var productService: ProductService) {
         }
         return ResponseEntity(Unit, status)
     }
+
+     fun valida(product: Product){
+        if (product.name.isEmpty())
+            throw ProductException(message = "value cannot be empty")
+
+         if(product.price <= 0.99)
+             throw ProductException(
+                 message = "price cannot be less than 1 real"
+             )
+    }
+
+
 
 }
