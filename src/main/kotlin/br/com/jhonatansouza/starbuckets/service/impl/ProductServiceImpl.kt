@@ -1,6 +1,8 @@
 package br.com.jhonatansouza.starbuckets.service.impl
 
+import br.com.jhonatansouza.starbuckets.exception.ProductException
 import br.com.jhonatansouza.starbuckets.model.Product
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import java.util.concurrent.ConcurrentHashMap
 
@@ -18,20 +20,38 @@ class ProductServiceImpl: ProductService {
     var products =
             ConcurrentHashMap<Long, Product>(initialProductResponse.associateBy(Product::id))
 
-    override fun create(product: Product) {
+    override fun create(product: Product): Product {
+        valida(product)
         products[product.id] = product
+        return product
     }
 
     override fun delete(id: Long) {
-         products.remove(id)
+        if(this.getById(id) != null){
+            products.remove(id)
+        }else{
+            throw ProductException("Product not found with id $id", HttpStatus.NOT_FOUND.value())
+        }
     }
 
-    override fun getById(id: Long): Product? {
-        return products[id]
-    }
+    override fun getById(id: Long) =
+            products[id] ?: throw ProductException("product $id not found", HttpStatus.NOT_FOUND.value())
+
 
     override fun update(id: Long, product: Product) {
-        delete(id)
-        create(product)
+        if(getById(id) != null){
+            delete(id)
+            create(product)
+        }else{
+            throw ProductException("Product not found", HttpStatus.NOT_FOUND.value())
+        }
+    }
+
+    fun valida(product: Product) {
+        if (product.name.isEmpty())
+            throw ProductException(message = "value cannot be empty", HttpStatus.BAD_REQUEST.value())
+
+        if (product.price <= 0.99)
+            throw ProductException(message = "price cannot be less than 1 real", HttpStatus.BAD_REQUEST.value())
     }
 }

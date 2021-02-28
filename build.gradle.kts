@@ -16,14 +16,11 @@ repositories {
 }
 
 dependencies {
-//	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation ("org.hibernate.validator:hibernate-validator:6.1.2.Final")
-//	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-//	implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -32,6 +29,9 @@ dependencies {
 	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("com.nhaarman:mockito-kotlin:1.6.0")
+	testImplementation("org.mockito:mockito-all:2.0.2-beta")
+	testImplementation("org.mockito:mockito-core:3.8.0")
 }
 
 tasks.withType<KotlinCompile> {

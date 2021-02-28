@@ -15,8 +15,9 @@ class ErrorHandler {
 
     @ExceptionHandler(ProductException::class)
     fun productNotFundExceptionHandler(
-            serveletRequest: HttpServletRequest, serveletResponse: HttpServletResponse, exception: Exception):
+            serveletRequest: HttpServletRequest, serveletResponse: HttpServletResponse, exception: ProductException):
             ResponseEntity<ErrorMessage> {
-        return ResponseEntity(ErrorMessage("product not found", exception.message!!), HttpStatus.NOT_FOUND)
+
+        return ResponseEntity(ErrorMessage("Oops...", exception.message.orEmpty()), HttpStatus.NOT_FOUND)
     }
 }

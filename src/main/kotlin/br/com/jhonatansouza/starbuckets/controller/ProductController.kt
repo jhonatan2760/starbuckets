@@ -1,63 +1,44 @@
 package br.com.jhonatansouza.starbuckets.controller
 
-import br.com.jhonatansouza.starbuckets.exception.ProductException
 import br.com.jhonatansouza.starbuckets.model.Product
-import br.com.jhonatansouza.starbuckets.model.RespostaJson
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
+import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("/product")
-class ProductController(private var productService: ProductService) {
+@RequestMapping("api/product/v1")
+class ProductController(private var service: ProductService) {
 
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/{id}")
-    fun getByid(@PathVariable id: Long): ResponseEntity<Product?> {
-        var product = productService.getById(id) ?: throw ProductException("product ${id} not found")
-        return ResponseEntity(product, HttpStatus.OK)
+    fun findProduct(@PathVariable id: Long): ResponseEntity<Product> {
+        logger.info("Finding product, productId=$id")
+        return ResponseEntity.ok(service.getById(id))
     }
 
-    @PostMapping()
-    fun create(@RequestBody product: Product): ResponseEntity<RespostaJson> {
-        valida(product)
-        productService.create(product)
-        HttpStatus.CREATED
-        val respostaJson = RespostaJson("OK", Date())
-        return ResponseEntity(respostaJson, HttpStatus.CREATED)
+    @PostMapping
+    fun create(
+            @RequestBody product: Product,
+            uri: UriComponentsBuilder
+    ): ResponseEntity<Any> {
+        logger.info("Creating product, productName=${product.name}")
+        return ResponseEntity.created(uri.path("/api/product/v1/{id}").build(service.create(product).id)).build()
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long): ResponseEntity<RespostaJson> {
-        var status = HttpStatus.NOT_FOUND
-        var respostaJson = RespostaJson("error", Date())
-        if (productService.getById(id) != null) {
-            status = HttpStatus.ACCEPTED
-            respostaJson = RespostaJson("ok", Date())
-            productService.delete(id)
-        }
-        return ResponseEntity(respostaJson, status)
+    fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
+        this.logger.info("Deleting product with id=$id")
+        return ResponseEntity.ok(service.delete(id))
     }
 
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Long, @RequestBody product: Product): ResponseEntity<Unit> {
-        var status = HttpStatus.NOT_FOUND
-        if (productService.getById(id) != null) {
-            productService.update(id, product)
-            status = HttpStatus.ACCEPTED
-        }
-        return ResponseEntity(Unit, status)
-    }
-
-    fun valida(product: Product) {
-        if (product.name.isEmpty())
-            throw ProductException(message = "value cannot be empty")
-
-        if (product.price <= 0.99)
-            throw ProductException(message = "price cannot be less than 1 real")
+        return ResponseEntity.ok(service.update(id, product))
     }
 
 
