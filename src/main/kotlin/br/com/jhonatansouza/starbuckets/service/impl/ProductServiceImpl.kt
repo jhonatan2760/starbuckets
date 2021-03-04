@@ -51,7 +51,7 @@ class ProductServiceImpl: ProductService {
         if (product.name.isEmpty())
             throw ProductException(message = "value cannot be empty", HttpStatus.BAD_REQUEST.value())
 
-        if (product.price <= 0.99)
+        if (product.price < 1)
             throw ProductException(message = "price cannot be less than 1 real", HttpStatus.BAD_REQUEST.value())
     }
 }
