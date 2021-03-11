@@ -7,10 +7,10 @@ interface ProductService {
 
     fun create(product: Product): Product
 
-    fun delete(id: Long)
+    fun delete(id: String)
 
-    fun getById(id: Long): Product
+    fun getById(id: String): Product
 
-    fun update(id: Long, product: Product)
+    fun update(id: String, product: Product)
 
 }

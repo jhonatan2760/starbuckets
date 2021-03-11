@@ -1,9 +1,12 @@
 package br.com.jhonatansouza.starbuckets.model
 
-import java.math.BigDecimal
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.MongoId
 
+@Document("product")
 data class Product(
-        val id: Long,
+        @MongoId
+        var id: String,
         var name: String,
         val description: String,
         val price: Double

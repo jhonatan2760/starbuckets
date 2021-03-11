@@ -2,43 +2,35 @@ package br.com.jhonatansouza.starbuckets.service.impl
 
 import br.com.jhonatansouza.starbuckets.exception.ProductException
 import br.com.jhonatansouza.starbuckets.model.Product
+import br.com.jhonatansouza.starbuckets.repository.ProductRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 @Service
-class ProductServiceImpl: ProductService {
+class ProductServiceImpl(val repository: ProductRepository): ProductService {
 
-    companion object {
-        val initialProductResponse = arrayOf(
-                Product(1, "Café", "café tradicional", 2.50),
-                Product(2, "Café gelado", "Café tradicional gelado", 2.50),
-                Product(3,"chá","chá mate",3.00),
-                Product(4,"Café c/ leite","café tradicional com leite quente", 5.00)
-        )
-    }
-    var products =
-            ConcurrentHashMap<Long, Product>(initialProductResponse.associateBy(Product::id))
 
     override fun create(product: Product): Product {
         valida(product)
-        products[product.id] = product
-        return product
+        //products[product.id] = product
+        product.id = UUID.randomUUID().toString()
+        return this.repository.save(product)
     }
 
-    override fun delete(id: Long) {
+    override fun delete(id: String) {
         if(this.getById(id) != null){
-            products.remove(id)
+          //  products.remove(id)
         }else{
             throw ProductException("Product not found with id $id", HttpStatus.NOT_FOUND.value())
         }
     }
 
-    override fun getById(id: Long) =
-            products[id] ?: throw ProductException("product $id not found", HttpStatus.NOT_FOUND.value())
+    override fun getById(id: String): Product =
+        this.repository.findById(id).get()
 
-
-    override fun update(id: Long, product: Product) {
+    override fun update(id: String, product: Product) {
         if(getById(id) != null){
             delete(id)
             create(product)
