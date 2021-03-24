@@ -4,17 +4,13 @@ import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.model.request.ProductRequest
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 import java.util.*
-import java.util.function.BiConsumer
-import java.util.function.Consumer
 import java.util.function.Supplier
 import java.util.stream.Collectors
 import java.util.stream.Stream
-import kotlin.collections.HashSet
 
 @RestController
 @RequestMapping("api/product/v1")
@@ -37,9 +33,9 @@ class ProductController(private var service: ProductService) {
         return ResponseEntity.created(uri.path("/api/product/v1/{id}")
                 .build(service.create(
                         Product(id = "", name = product.name,
-                        price = product.price,
-                        description = product.description
-                )).id)).build()
+                                price = product.price,
+                                description = product.description
+                        )).id)).build()
     }
 
     @DeleteMapping("/{id}")
