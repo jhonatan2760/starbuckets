@@ -1,6 +1,20 @@
 package br.com.jhonatansouza.starbuckets.model.response
 
-data class ProductResponse(val id: Long,
+import br.com.jhonatansouza.starbuckets.model.Product
+
+data class ProductResponse(val id: String,
                            val name: String,
-                           val price: Double)
+                           val description: String,
+                           val price: Double) {
+
+    companion object {
+        fun fromEntity(entity: Product) = ProductResponse(
+                entity.id,
+                entity.name,
+                entity.description,
+                entity.price
+        )
+    }
+
+}
 
