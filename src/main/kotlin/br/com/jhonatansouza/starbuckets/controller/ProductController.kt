@@ -4,10 +4,13 @@ import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.model.request.ProductRequest
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
+import java.util.*
+import java.util.function.Supplier
+import java.util.stream.Collectors
+import java.util.stream.Stream
 
 @RestController
 @RequestMapping("api/product/v1")
@@ -30,9 +33,9 @@ class ProductController(private var service: ProductService) {
         return ResponseEntity.created(uri.path("/api/product/v1/{id}")
                 .build(service.create(
                         Product(id = "", name = product.name,
-                        price = product.price,
-                        description = product.description
-                )).id)).build()
+                                price = product.price,
+                                description = product.description
+                        )).id)).build()
     }
 
     @DeleteMapping("/{id}")
@@ -47,5 +50,18 @@ class ProductController(private var service: ProductService) {
         return ResponseEntity.ok(service.update(id, product))
     }
 
+    @PostMapping("/generate")
+    fun createData(): ResponseEntity<String> {
 
+        val item = Arrays.asList("Café tipo", "Leite tipo", "Vitamina", "Sobremesa", "água de", "Leite de", "Sorvete de", "Pão de");
+        val recheio = Arrays.asList("Expresso", "Morango", "Beterraba", "Laranja", "Chocolate", "Uva", "Açucar", "Mamão", "Suspiro", "Agridoce");
+
+        val itens = Stream.generate(Supplier { Math.random() })
+                .map { "${item[(Math.random() * item.size).toInt()]} - ${recheio[(Math.random() * recheio.size).toInt()]}" }
+                .limit(600)
+                .peek(System.out::println)
+                .collect(Collectors.toSet())
+
+        return ResponseEntity.ok(itens.toString())
+    }
 }
