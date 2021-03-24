@@ -5,6 +5,9 @@ import br.com.jhonatansouza.starbuckets.model.request.ProductRequest
 import br.com.jhonatansouza.starbuckets.model.response.ProductResponse
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
@@ -23,6 +26,14 @@ class ProductController(private var service: ProductService) {
     fun findProduct(@PathVariable id: String): ResponseEntity<ProductResponse> {
         logger.info("Finding product, productId=$id")
         return ResponseEntity.ok(ProductResponse.fromEntity(service.getById(id)))
+    }
+
+    @GetMapping("/")
+    fun findAllProducts(
+            @PageableDefault(page = 0, size = 10) page: Pageable
+    ): ResponseEntity<Page<Product>> {
+        logger.info("Finding products")
+        return ResponseEntity.ok(service.findAllProducts(page))
     }
 
     @PostMapping
@@ -59,6 +70,7 @@ class ProductController(private var service: ProductService) {
                 .peek(System.out::println)
                 .collect(Collectors.toSet())
 
+        itens.forEach { it -> service.create(Product(name = it, description = "Produto " + it, price = ((Math.random() * 100) + 2.0))) }
         return ResponseEntity.ok(itens.toString())
     }
 }
