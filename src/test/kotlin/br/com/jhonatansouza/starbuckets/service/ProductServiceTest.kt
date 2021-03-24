@@ -3,12 +3,7 @@ package br.com.jhonatansouza.starbuckets.service
 import br.com.jhonatansouza.starbuckets.exception.ProductException
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
-import br.com.jhonatansouza.starbuckets.service.impl.ProductServiceImpl
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.util.Assert
@@ -16,7 +11,7 @@ import org.springframework.util.Assert
 @SpringBootTest
 class ProductServiceTest {
 
-    var service: ProductService = ProductServiceImpl()
+    var service: ProductService = ProductService()
 
     private val id = 1
 

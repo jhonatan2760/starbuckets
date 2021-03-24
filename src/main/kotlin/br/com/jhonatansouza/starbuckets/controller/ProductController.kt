@@ -2,6 +2,7 @@ package br.com.jhonatansouza.starbuckets.controller
 
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.model.request.ProductRequest
+import br.com.jhonatansouza.starbuckets.model.response.ProductResponse
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
@@ -19,23 +20,19 @@ class ProductController(private var service: ProductService) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/{id}")
-    fun findProduct(@PathVariable id: String): ResponseEntity<Product> {
+    fun findProduct(@PathVariable id: String): ResponseEntity<ProductResponse> {
         logger.info("Finding product, productId=$id")
-        return ResponseEntity.ok(service.getById(id))
+        return ResponseEntity.ok(ProductResponse.fromEntity(service.getById(id)))
     }
 
     @PostMapping
     fun create(
-            @RequestBody product: ProductRequest,
+            @RequestBody request: ProductRequest,
             uri: UriComponentsBuilder
     ): ResponseEntity<Any> {
-        logger.info("Creating product, productName=${product.name}")
+        logger.info("Creating product, productName=${request.name}")
         return ResponseEntity.created(uri.path("/api/product/v1/{id}")
-                .build(service.create(
-                        Product(id = "", name = product.name,
-                                price = product.price,
-                                description = product.description
-                        )).id)).build()
+                .build(service.create(ProductRequest.toEntity(request)).id)).build()
     }
 
     @DeleteMapping("/{id}")
