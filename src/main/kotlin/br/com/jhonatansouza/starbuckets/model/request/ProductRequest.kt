@@ -8,6 +8,7 @@ data class ProductRequest(val name: String,
 ){
 
     companion object{
+
         fun toEntity(request: ProductRequest) = Product(
                    name = request.name,
                    description = request.description,

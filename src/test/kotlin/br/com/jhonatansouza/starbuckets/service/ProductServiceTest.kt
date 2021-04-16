@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.service
 
-import br.com.jhonatansouza.starbuckets.exception.ProductException
+import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
 import org.junit.jupiter.api.Test
@@ -17,7 +17,7 @@ class ProductServiceTest {
 
     @Test
     fun `when register a product, the price shouldnt be less than 0_99`() {
-        assertThrows<ProductException> {
+        assertThrows<GenericException> {
             service.create(createProduct(price = 0.00))
         }
     }
@@ -30,7 +30,7 @@ class ProductServiceTest {
 
     @Test
     fun `quando nome vier vazio, produto não pode ser criado`() {
-        assertThrows<ProductException> {
+        assertThrows<GenericException> {
             service.create(createProduct(name = "", price = 1.00))
         }
     }
