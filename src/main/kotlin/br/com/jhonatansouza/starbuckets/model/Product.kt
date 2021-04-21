@@ -9,5 +9,6 @@ data class Product(
         var id: String = "",
         var name: String,
         val description: String,
-        val price: Double
+        val price: Double,
+        val provider: Provider
 )
