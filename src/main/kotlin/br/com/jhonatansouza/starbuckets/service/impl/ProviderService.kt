@@ -10,7 +10,6 @@ import java.util.*
 class ProviderService(val repository: ProviderRepository) {
 
     fun create(provider: Provider): Provider {
-
         provider.id = UUID.randomUUID().toString()
         return this.repository.save(provider)
     }

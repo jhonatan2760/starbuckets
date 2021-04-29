@@ -16,4 +16,5 @@ data class Address(
     var zipCode: String,
     var city: String,
     var state: String,
-    var complement: String)
+    var complement: String
+    )

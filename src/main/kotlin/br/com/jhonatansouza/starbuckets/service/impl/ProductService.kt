@@ -4,8 +4,12 @@ import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.repository.ProductRepository
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import java.util.*
+import java.util.function.Supplier
+import java.util.stream.Collectors
+import java.util.stream.Stream
 
 @Service
 class ProductService(val repository: ProductRepository) {
@@ -23,6 +27,9 @@ class ProductService(val repository: ProductRepository) {
         }
     }
 
+    fun getAll(): List<Product> =
+        this.repository.findAll()
+
     fun getById(id: String): Product =
         this.repository.findById(id).get()
 
@@ -35,6 +42,21 @@ class ProductService(val repository: ProductRepository) {
         }
     }
 
+    fun createData(): MutableSet<String>? {
+
+        val item = Arrays.asList("Café tipo", "Leite tipo", "Vitamina", "Sobremesa", "água de", "Leite de", "Sorvete de", "Pão de");
+        val recheio = Arrays.asList("Expresso", "Morango", "Beterraba", "Laranja", "Chocolate", "Uva", "Açucar", "Mamão", "Suspiro", "Agridoce");
+
+            val itens = Stream.generate(Supplier { Math.random() })
+            .map { "${item[(Math.random() * item.size).toInt()]} - ${recheio[(Math.random() * recheio.size).toInt()]}" }
+            .limit(600)
+            .peek(System.out::println)
+            .collect(Collectors.toSet())
+
+        val itensPag = itens
+
+        return itensPag
+    }
     fun valida(product: Product) {
         if (product.name.isEmpty())
             throw GenericException(message = "value cannot be empty", HttpStatus.BAD_REQUEST.value())

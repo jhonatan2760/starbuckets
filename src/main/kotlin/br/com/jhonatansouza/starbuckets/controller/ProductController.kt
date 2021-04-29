@@ -41,6 +41,11 @@ class ProductController(private var service: ProductService) {
         return ResponseEntity.ok(service.delete(id))
     }
 
+    @GetMapping
+    fun getAll(): ResponseEntity<List<Product>> {
+        this.logger.info("Get all product")
+        return ResponseEntity.ok(service.getAll())
+    }
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: String, @RequestBody product: Product): ResponseEntity<Unit> {
@@ -49,16 +54,8 @@ class ProductController(private var service: ProductService) {
 
     @PostMapping("/generate")
     fun createData(): ResponseEntity<String> {
-
-        val item = Arrays.asList("Café tipo", "Leite tipo", "Vitamina", "Sobremesa", "água de", "Leite de", "Sorvete de", "Pão de");
-        val recheio = Arrays.asList("Expresso", "Morango", "Beterraba", "Laranja", "Chocolate", "Uva", "Açucar", "Mamão", "Suspiro", "Agridoce");
-
-        val itens = Stream.generate(Supplier { Math.random() })
-                .map { "${item[(Math.random() * item.size).toInt()]} - ${recheio[(Math.random() * recheio.size).toInt()]}" }
-                .limit(600)
-                .peek(System.out::println)
-                .collect(Collectors.toSet())
-
-        return ResponseEntity.ok(itens.toString())
+        this.logger.info("create itens pag")
+        val response = service.createData()
+        return ResponseEntity.ok(response.toString())
     }
 }
