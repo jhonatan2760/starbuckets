@@ -5,13 +5,11 @@ import br.com.jhonatansouza.starbuckets.model.request.ProductRequest
 import br.com.jhonatansouza.starbuckets.model.response.ProductResponse
 import br.com.jhonatansouza.starbuckets.service.impl.ProductService
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
-import java.util.*
-import java.util.function.Supplier
-import java.util.stream.Collectors
-import java.util.stream.Stream
 
 @RestController
 @RequestMapping("api/product/v1")
@@ -25,6 +23,12 @@ class ProductController(private var service: ProductService) {
         return ResponseEntity.ok(ProductResponse.fromEntity(service.getById(id)))
     }
 
+    @GetMapping("product/{id}")
+    fun findProduct1(@PathVariable id: String): ResponseEntity<ProductResponse> {
+        logger.info("Finding product, productId=$id")
+        return ResponseEntity.ok(ProductResponse.testeResponse(service.getById(id)))
+    }
+
     @PostMapping
     fun create(
             @RequestBody request: ProductRequest,
@@ -35,6 +39,16 @@ class ProductController(private var service: ProductService) {
                 .build(service.create(ProductRequest.toEntity(request)).id)).build()
     }
 
+    @PostMapping("/product")
+    fun createProduct(
+        @RequestBody request: ProductRequest,
+        uri: UriComponentsBuilder
+    ): ResponseEntity<Any> {
+        logger.info("Creating product, productName=${request.name}")
+        return ResponseEntity.created(uri.path("/api/product/v1/{id}")
+            .build(service.create(ProductRequest.toProduct(request)).id)).build()
+    }
+
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String): ResponseEntity<Unit> {
         this.logger.info("Deleting product with id=$id")
@@ -42,13 +56,14 @@ class ProductController(private var service: ProductService) {
     }
 
     @GetMapping
-    fun getAll(): ResponseEntity<List<Product>> {
+    fun getAll(page: Pageable): ResponseEntity<Page<Product>> {
         this.logger.info("Get all product")
-        return ResponseEntity.ok(service.getAll())
+        return ResponseEntity.ok(service.getAll(page))
     }
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: String, @RequestBody product: Product): ResponseEntity<Unit> {
+        this.logger.info("")
         return ResponseEntity.ok(service.update(id, product))
     }
 

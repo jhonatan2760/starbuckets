@@ -10,5 +10,5 @@ data class Product(
         var name: String,
         val description: String,
         val price: Double,
-        val provider: Provider
+        val provider: Provider?,
 )

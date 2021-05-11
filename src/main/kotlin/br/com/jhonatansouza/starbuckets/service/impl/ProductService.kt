@@ -3,6 +3,8 @@ package br.com.jhonatansouza.starbuckets.service.impl
 import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.repository.ProductRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -27,8 +29,8 @@ class ProductService(val repository: ProductRepository) {
         }
     }
 
-    fun getAll(): List<Product> =
-        this.repository.findAll()
+    fun getAll(page: Pageable): Page<Product> =
+        this.repository.findAll(page)
 
     fun getById(id: String): Product =
         this.repository.findById(id).get()
@@ -53,9 +55,7 @@ class ProductService(val repository: ProductRepository) {
             .peek(System.out::println)
             .collect(Collectors.toSet())
 
-        val itensPag = itens
-
-        return itensPag
+        return   itens
     }
     fun valida(product: Product) {
         if (product.name.isEmpty())

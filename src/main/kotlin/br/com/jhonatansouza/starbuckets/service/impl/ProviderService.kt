@@ -1,6 +1,7 @@
 package br.com.jhonatansouza.starbuckets.service.impl
 import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.Provider
+import br.com.jhonatansouza.starbuckets.model.request.ProviderRequest
 import br.com.jhonatansouza.starbuckets.repository.ProviderRepository
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.stereotype.Service

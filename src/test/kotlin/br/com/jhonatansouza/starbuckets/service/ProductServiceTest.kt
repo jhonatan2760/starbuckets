@@ -25,17 +25,7 @@ class ProductServiceTest {
         assertThrows<GenericException> {
             service.create(
                 createProduct(
-                    price = 0.00, provider = Provider(
-                        "akw3s",
-                        "cafe",
-                        address = Address(
-                            "rua",
-                            "09450-000",
-                            "mary jones city",
-                            "Ribeirao Pires",
-                            "casa 1"
-                        )
-                    )
+                    price = 0.00
                 )
             )
         }
@@ -45,17 +35,7 @@ class ProductServiceTest {
     fun `when register a product and the price is more than 1 Real, should verify the product name`() {
         val response = service.create(
             createProduct(
-                name = "Café Expresso", price = 14.0, provider = Provider(
-                    "akw3s",
-                    "cafe",
-                    address = Address(
-                        "rua",
-                        "09450-000",
-                        "mary jones city",
-                        "Ribeirao Pires",
-                        "casa 1"
-                    )
-                )
+                name = "Café Expresso", price = 14.0
             )
         )
         assert(response.name == "Café Expresso")
@@ -66,23 +46,14 @@ class ProductServiceTest {
         assertThrows<GenericException> {
             service.create(
                 createProduct(
-                    name = "", price = 1.00, provider = Provider(
-                        "akw3s",
-                        "cafe",
-                        address = Address(
-                            "rua",
-                            "09450-000",
-                            "mary jones city",
-                            "Ribeirao Pires",
-                            "casa 1"
-                        )
-                    )
+                    name = "", price = 1.00
                 )
             )
+
         }
     }
 
-    private fun createProduct(name: String = "Product Name", price: Double, provider: Provider): Product {
+    private fun createProduct(name: String = "Product Name", price: Double): Product {
         return Product(
             "ssw32e3",
             name,

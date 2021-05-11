@@ -9,7 +9,7 @@ data class ProductRequest(
     val name: String,
     val description: String,
     val price: Double,
-    val provider: ProviderRequest
+    val provider: ProviderRequest?
 ) {
 
     companion object {
@@ -20,16 +20,23 @@ data class ProductRequest(
             price = request.price,
             provider = Provider(
                 id = UUID.randomUUID().toString(),
-                request.provider.name,
+                request.provider!!.name,
                 Address(
                     request.provider.address.street,
                     request.provider.address.zipCode,
                     request.provider.address.city,
                     request.provider.address.state,
-                    request.provider.address.complement,
-
+                    request.provider.address.complement
                 )
             )
+        )
+
+        fun toProduct(request: ProductRequest) = Product(
+            name = request.name,
+            description = request.description,
+            price = request.price,
+            id = UUID.randomUUID().toString(),
+            provider = null
         )
     }
 }
