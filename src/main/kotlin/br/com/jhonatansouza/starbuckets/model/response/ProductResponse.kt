@@ -31,7 +31,7 @@ data class ProductResponse(
             )
         )
 
-        fun testeResponse(entity: Product) = ProductResponse(
+        fun toResponse(entity: Product) = ProductResponse(
             id = entity.id,
             name = entity.name,
             description = entity.description,

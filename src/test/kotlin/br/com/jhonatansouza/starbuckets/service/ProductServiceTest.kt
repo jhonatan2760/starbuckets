@@ -5,7 +5,7 @@ import br.com.jhonatansouza.starbuckets.model.Address
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.model.Provider
 import br.com.jhonatansouza.starbuckets.repository.ProductRepository
-import br.com.jhonatansouza.starbuckets.service.impl.ProductService
+import br.com.jhonatansouza.starbuckets.service.ProductService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.boot.test.context.SpringBootTest
@@ -46,7 +46,8 @@ class ProductServiceTest {
         assertThrows<GenericException> {
             service.create(
                 createProduct(
-                    name = "", price = 1.00
+                    name = "",
+                    price = 1.00
                 )
             )
 

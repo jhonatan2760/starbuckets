@@ -1,4 +1,4 @@
-package br.com.jhonatansouza.starbuckets.service.impl
+package br.com.jhonatansouza.starbuckets.service
 
 import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.Product
