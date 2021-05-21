@@ -112,7 +112,7 @@ class ProductServiceTest {
     }
     @Test
 
-    fun `update product`() {n
+    fun `update product`() {
         val product: Unit = service.update(
             id  , product = Product(
                 "randowId",
