@@ -110,8 +110,8 @@ class ProductServiceTest {
         )
         Assert.notNull(product)
     }
-
     @Test
+
     fun `update product`() {
         val product: Unit = service.update(
             id  , product = Product(
