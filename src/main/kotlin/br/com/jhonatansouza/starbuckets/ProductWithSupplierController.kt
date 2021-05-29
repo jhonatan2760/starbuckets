@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("api/product/v1")
+@RequestMapping("api/supplier/v1")
 class ProductWithSupplierController(private var service: ProductService) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
