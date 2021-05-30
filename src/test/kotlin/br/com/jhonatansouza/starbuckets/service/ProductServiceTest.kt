@@ -1,82 +1,57 @@
 package br.com.jhonatansouza.starbuckets.service
 
-import br.com.jhonatansouza.starbuckets.exception.ProductException
+
+import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.Product
-import br.com.jhonatansouza.starbuckets.service.impl.ProductService
+import br.com.jhonatansouza.starbuckets.repository.ProductRepository
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.junit.jupiter.MockitoSettings
+import org.mockito.quality.Strictness
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.util.Assert
 
+@ExtendWith(MockitoExtension::class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 @SpringBootTest
 class ProductServiceTest {
 
-    var service: ProductService = ProductService()
+    @Mock
+    lateinit var repository: ProductRepository
 
-    private val id = 1
+    @InjectMocks
+    lateinit var service: ProductService
+
+    private val id = ""
 
     @Test
-    fun `when register a product, the price shouldnt be less than 0_99`() {
-        assertThrows<ProductException> {
-            service.create(createProduct(price = 0.00))
+    fun `when create a product should validate if the name is not empty`() {
+        assertThrows<GenericException> {
+            service.create(product = createProduct(name = "", price = 1.99))
         }
     }
 
     @Test
-    fun `when register a product and the price is more than 1 Real, should verify the product name`() {
-        val response = service.create(createProduct(name = "Café Expresso", price = 14.0))
-        assert(response.name == "Café Expresso")
-    }
-
-    @Test
-    fun `quando nome vier vazio, produto não pode ser criado`() {
-        assertThrows<ProductException> {
-            service.create(createProduct(name = "", price = 1.00))
+    fun `when create a product should validate if the price is GREATER than 0`() {
+        assertThrows<GenericException> {
+            service.create(product = createProduct(name = "", price = 0.00))
         }
     }
 
-    private fun createProduct(name: String = "Product Name", price: Double): Product {
+    private fun createProduct(
+        name: String = "Product Name",
+        description: String = "120938102830912803108",
+        price: Double
+    ): Product {
         return Product(
-            3120L,
+            1,
             name,
-            "Description",
+            description,
             price
         )
     }
 
-    @Test
-    fun `Search product by id`() {
-        val product: Product = service.getById(id.toLong())
-        Assert.notNull(product)
-    }
-
-    @Test
-    fun `delete product by id`() {
-        val product: Unit = service.delete(id.toLong())
-        Assert.notNull(product)
-    }
-
-    @Test
-    fun `create product`() {
-        val product: Product = service.create(
-            Product(
-                1,
-                "cafe",
-                "tradicional",
-                2.50
-            )
-        )
-        Assert.notNull(product)
-    }
-
-    @Test
-    fun `update product`(){
-        val product: Unit = service.update(id.toLong(), Product(
-            1,
-            "cafe",
-            "tradicional",
-            2.50
-        ))
-        Assert.notNull(product)
-    }
 }

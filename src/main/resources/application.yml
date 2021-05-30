@@ -1,7 +1,2 @@
 server:
-  port: 9092
-
-feature:
-  toggle:
-    age: "29"
-
+  port: 8080

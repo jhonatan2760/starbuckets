@@ -1,13 +1,15 @@
 package br.com.jhonatansouza.starbuckets.model
 
-import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.data.mongodb.core.mapping.MongoId
+import javax.persistence.*
 
-@Document("product")
+@Entity
 data class Product(
-        @MongoId
-        var id: String = "",
-        var name: String,
-        val description: String,
-        val price: Double
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    var id: Long? = 0,
+    @Column(length = 255)
+    var name: String,
+    @Column(length = 2000)
+    val description: String,
+    val price: Double
 )
