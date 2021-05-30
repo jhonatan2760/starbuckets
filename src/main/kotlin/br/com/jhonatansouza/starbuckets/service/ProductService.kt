@@ -6,25 +6,19 @@ import br.com.jhonatansouza.starbuckets.repository.ProductRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import java.util.*
-import java.util.function.Supplier
-import java.util.stream.Collectors
-import java.util.stream.Stream
 
 @Service
 class ProductService(val repository: ProductRepository) {
 
     fun create(product: Product): Product {
         valida(product)
-        product.id = UUID.randomUUID().toString()
         return this.repository.save(product)
     }
 
-    fun delete(id: String) {
-        if(this.getById(id) != null){
-        }else{
+    fun delete(id: Long) {
+        if (this.getById(id) != null) {
+        } else {
             throw GenericException("Product not found with id $id", HttpStatus.NOT_FOUND.value())
         }
     }
@@ -32,31 +26,18 @@ class ProductService(val repository: ProductRepository) {
     fun getAll(page: Pageable): Page<Product> =
         this.repository.findAll(page)
 
-    fun getById(id: String): Product =
+    fun getById(id: Long): Product =
         this.repository.findById(id).get()
 
-    fun update(id: String, product: Product) {
-        if(getById(id) != null){
+    fun update(id: Long, product: Product) {
+        if (getById(id) != null) {
             delete(id)
             create(product)
-        }else{
+        } else {
             throw GenericException("Product not found", HttpStatus.NOT_FOUND.value())
         }
     }
 
-    fun createData(): MutableSet<String>? {
-
-        val item = Arrays.asList("Café tipo", "Leite tipo", "Vitamina", "Sobremesa", "água de", "Leite de", "Sorvete de", "Pão de");
-        val recheio = Arrays.asList("Expresso", "Morango", "Beterraba", "Laranja", "Chocolate", "Uva", "Açucar", "Mamão", "Suspiro", "Agridoce");
-
-            val itens = Stream.generate(Supplier { Math.random() })
-            .map { "${item[(Math.random() * item.size).toInt()]} - ${recheio[(Math.random() * recheio.size).toInt()]}" }
-            .limit(600)
-            .peek(System.out::println)
-            .collect(Collectors.toSet())
-
-        return   itens
-    }
     fun valida(product: Product) {
         if (product.name.isEmpty())
             throw GenericException(message = "value cannot be empty", HttpStatus.BAD_REQUEST.value())

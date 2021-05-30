@@ -1,4 +1,4 @@
-package br.com.jhonatansouza.starbuckets
+package br.com.jhonatansouza.starbuckets.controller
 
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.model.request.ProductRequest
@@ -28,19 +28,19 @@ class ProductController(private var service: ProductService) {
     }
 
     @GetMapping("/{id}")
-    fun findProduct(@PathVariable id: String): ResponseEntity<ProductResponse> {
+    fun findProduct(@PathVariable id: Long): ResponseEntity<ProductResponse> {
         logger.info("Finding product, productId=$id")
         return ResponseEntity.ok(ProductResponse.toResponse(service.getById(id)))
     }
 
     @PutMapping("/{id}")
-    fun updateProduct(@PathVariable id: String, @RequestBody product: Product): ResponseEntity<Unit> {
+    fun updateProduct(@PathVariable id: Long, @RequestBody product: Product): ResponseEntity<Unit> {
         this.logger.info("")
         return ResponseEntity.ok(service.update(id, product))
     }
 
     @DeleteMapping("/{id}")
-    fun deleteProduct(@PathVariable id: String): ResponseEntity<Unit> {
+    fun deleteProduct(@PathVariable id: Long): ResponseEntity<Unit> {
         this.logger.info("Deleting product with id=$id")
         return ResponseEntity.ok(service.delete(id))
     }
