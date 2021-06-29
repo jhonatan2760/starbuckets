@@ -10,13 +10,6 @@ data class ProductResponse(
 ) {
 
     companion object {
-        fun fromEntity(entity: Product) = ProductResponse(
-            entity.id,
-            entity.name,
-            entity.description,
-            entity.price
-        )
-
         fun toResponse(entity: Product) = ProductResponse(
             id = entity.id,
             name = entity.name,
