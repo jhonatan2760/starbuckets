@@ -4,7 +4,9 @@ import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.User
 import br.com.jhonatansouza.starbuckets.repository.UserRepository
 import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
 
+@Service
 class UserService(val repository: UserRepository) {
 
     private val logger = LoggerFactory.getLogger(javaClass)

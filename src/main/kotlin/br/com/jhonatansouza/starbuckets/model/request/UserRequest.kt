@@ -8,7 +8,7 @@ data class UserRequest(
     val email: String,
     val password: String,
     val birthDate: String,
-    val type: Enum<UserEnum>,
+    val type: UserEnum,
     val active: Boolean
 ) {
     companion object {

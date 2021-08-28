@@ -18,6 +18,7 @@ class PaymentTypeController(private val service: PaymentTypeService) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
+    @PostMapping
     fun create(
         @RequestBody paymentTypeRequest: PaymentTypeRequest,
         uri: UriComponentsBuilder

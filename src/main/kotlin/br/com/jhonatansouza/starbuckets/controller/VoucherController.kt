@@ -1,9 +1,7 @@
 package br.com.jhonatansouza.starbuckets.controller
 
-import br.com.jhonatansouza.starbuckets.model.User
 import br.com.jhonatansouza.starbuckets.model.Voucher
 import br.com.jhonatansouza.starbuckets.model.request.VoucherRequest
-import br.com.jhonatansouza.starbuckets.model.response.UserResponse
 import br.com.jhonatansouza.starbuckets.model.response.VoucherResponse
 import br.com.jhonatansouza.starbuckets.service.VoucherService
 import org.slf4j.LoggerFactory
@@ -12,11 +10,12 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("/api/voucher/v1/")
+@RequestMapping("/api/voucher/v1")
 class VoucherController(private val service: VoucherService) {
 
     val logger = LoggerFactory.getLogger(javaClass)
 
+    @PostMapping
     fun create(
         @RequestBody voucherRequest: VoucherRequest,
         uri: UriComponentsBuilder

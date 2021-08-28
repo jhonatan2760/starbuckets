@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.enum
 
-enum class UserEnum {
-   ADMIN,
-   USER
+enum class UserEnum(type: String) {
+   ADMIN(type = "ADMIN"),
+   USER(type = "USER")
 }

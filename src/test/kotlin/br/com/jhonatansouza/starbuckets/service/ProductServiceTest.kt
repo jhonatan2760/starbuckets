@@ -4,6 +4,7 @@ package br.com.jhonatansouza.starbuckets.service
 import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.Product
 import br.com.jhonatansouza.starbuckets.repository.ProductRepository
+import com.nhaarman.mockito_kotlin.whenever
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -53,5 +54,17 @@ class ProductServiceTest {
             price
         )
     }
+
+    @Test
+    fun`when create product`(){
+        var product = Product(123,
+            "café",
+        "muito quente",
+        3.89)
+
+        whenever(service.create(product))
+    }
+
+
 
 }

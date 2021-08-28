@@ -7,8 +7,8 @@ import br.com.jhonatansouza.starbuckets.model.PaymentType
 data class PaymentTypeRequest(
     val holderName: String,
     val cardName: String,
-    val cardType: Enum<PaymentEnum>,
-    val issuer: Enum<IssuerEnum>,
+    val cardType: PaymentEnum,
+    val issuer: IssuerEnum,
     val isPrincipal: Boolean,
     val active: Boolean
 ) {

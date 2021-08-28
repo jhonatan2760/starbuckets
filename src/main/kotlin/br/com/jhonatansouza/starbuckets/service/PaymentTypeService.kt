@@ -22,6 +22,7 @@ class PaymentTypeService(private val repository: PaymentTypeRepository) {
     }
 
     fun delete(id: Long) {
+        logger.info("deleting payment type by id")
         if (this.getById(id) != null) {
             repository.deleteById(id)
         } else {
@@ -30,6 +31,7 @@ class PaymentTypeService(private val repository: PaymentTypeRepository) {
     }
 
     fun update(id: Long, payment: PaymentType) {
+        logger.info("update payment type by id")
         if (this.getById(id) != null) {
             delete(id)
             create(payment)

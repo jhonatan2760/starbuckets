@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("/api/user/v1/")
+@RequestMapping("/api/user/v1")
 class UserController(private val service: UserService) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
+    @PostMapping
     fun create(
         @RequestBody userRequest: UserRequest,
         uri: UriComponentsBuilder
