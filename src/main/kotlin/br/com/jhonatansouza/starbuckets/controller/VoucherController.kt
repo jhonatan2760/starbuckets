@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("/api/voucher/v1")
+@RequestMapping("/api/v1/voucher")
 class VoucherController(private val service: VoucherService) {
 
     val logger = LoggerFactory.getLogger(javaClass)

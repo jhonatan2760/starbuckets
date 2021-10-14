@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("/api/user/v1")
+@RequestMapping("/api/v1/user")
 class UserController(private val service: UserService) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
@@ -22,14 +22,18 @@ class UserController(private val service: UserService) {
     ): ResponseEntity<Any> {
         logger.info("creating user name${userRequest.name}")
         return ResponseEntity.created(
-            uri.path("/api/user/v1/{id}").build(service.create(UserRequest.toUser(userRequest)
-        ).id)).build()
+            uri.path("/api/user/v1/{id}").build(
+                service.create(
+                    UserRequest.toUser(userRequest)
+                ).id
+            )
+        ).build()
     }
 
     @GetMapping("/{id}")
     fun getById(
         @PathVariable id: Long
-    ) : ResponseEntity<UserResponse>{
+    ): ResponseEntity<UserResponse> {
         logger.info("looking for user by id, user=$id")
         return ResponseEntity.ok(UserResponse.toResponse(service.getByid(id)))
     }
@@ -46,7 +50,7 @@ class UserController(private val service: UserService) {
     @DeleteMapping("/{id}")
     fun deleteUser(
         @PathVariable id: Long
-    ): ResponseEntity<Unit>{
+    ): ResponseEntity<Unit> {
         logger.info("deleting user by id, user=$id")
         return ResponseEntity.ok(service.delete(id))
     }

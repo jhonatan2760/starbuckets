@@ -1,0 +1,19 @@
+Criação de usuários:
+
+	- Está sendo possível criar vários usuários com o mesmo email
+	(O email deve ser uma chave)
+
+Busca de usuários:
+   - Quando você busca um usuário e ele não existe, ele dá 500 ao invés de 404 (Not found)
+
+Update de usuários:
+   - Está utilizando o modelo ao invés de um DTO para enviar os dados
+
+
+
+Cadastro de produtos:
+
+- Está sendo possível criar o mesmo produto várias vezes
+- A Busca de Produto está retornando 500 quando não encontra
+- A atualização está sem log
+- O campo que recebe os valores do produto é o dominio do banco de dados
