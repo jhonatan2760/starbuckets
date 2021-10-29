@@ -26,7 +26,9 @@ class PaymentTypeController(private val service: PaymentTypeService) {
         logger.info("creating payment type name${paymentTypeRequest.holderName}")
         return ResponseEntity.created(
             uri.path("/api/payment/type/v1/{id}").build(service.create(
-                PaymentTypeRequest.toPaymenType(paymentTypeRequest)).id)).build()
+                PaymentTypeRequest.toPaymenType(paymentTypeRequest),
+                paymentTypeRequest.cardNumber,
+                paymentTypeRequest.expirationDate).id)).build()
     }
 
     @GetMapping("/{id}")

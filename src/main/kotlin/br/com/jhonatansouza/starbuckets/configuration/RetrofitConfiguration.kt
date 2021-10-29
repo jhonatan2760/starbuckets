@@ -14,7 +14,7 @@ class RetrofitConfiguration {
 
     @Bean
     fun vaultClient(): VaultClient {
-        return this.retrofitBuilder("api/v1/vault/").create()
+        return this.retrofitBuilder("api/").create()
     }
 
     private fun retrofitBuilder(path: String): Retrofit {

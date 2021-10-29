@@ -8,7 +8,7 @@ import retrofit2.http.POST
 
 interface VaultClient {
 
-    @POST("/")
+    @POST("v1/vault/")
     fun createCardToken(@Body creditCardRequest: CreditCardRequest): Call<CreditCardResponse>
 
 }
