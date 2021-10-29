@@ -1,9 +1,13 @@
 package br.com.jhonatansouza.starbuckets.controller
 
 import br.com.jhonatansouza.starbuckets.model.User
+import br.com.jhonatansouza.starbuckets.model.request.CreditCardRequest
 import br.com.jhonatansouza.starbuckets.model.request.UserRequest
+import br.com.jhonatansouza.starbuckets.model.response.CreditCardResponse
 import br.com.jhonatansouza.starbuckets.model.response.UserResponse
 import br.com.jhonatansouza.starbuckets.service.UserService
+import br.com.jhonatansouza.starbuckets.service.clients.VaultClient
+import okhttp3.ResponseBody
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,9 +15,20 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/api/v1/user")
-class UserController(private val service: UserService) {
+class UserController(private val service: UserService, private val client: VaultClient) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
+
+    @GetMapping("/hello")
+    fun teste(): CreditCardResponse? {
+        return client.createCardToken(CreditCardRequest(
+            cardNumber = "1-203192",
+            cvv = "01293921",
+            holderName = "Jhonatan Souza",
+            expireDate = "12-02-2002",
+            brand = "MASTERCARD"
+        )).execute().body()
+    }
 
     @PostMapping
     fun create(
