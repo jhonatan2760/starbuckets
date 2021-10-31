@@ -14,7 +14,7 @@ class RetrofitConfiguration {
 
     @Bean
     fun vaultClient(): VaultClient {
-        return this.retrofitBuilder("api/").create()
+        return this.retrofitBuilder("api/").create(VaultClient::class.java)
     }
 
     private fun retrofitBuilder(path: String): Retrofit {
@@ -22,7 +22,6 @@ class RetrofitConfiguration {
             .setLenient()
             .enableComplexMapKeySerialization()
             .serializeNulls()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create()
 
         return Retrofit.Builder()
