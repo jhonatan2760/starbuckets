@@ -1,13 +1,11 @@
 package br.com.jhonatansouza.starbuckets.configuration
 
 import br.com.jhonatansouza.starbuckets.service.clients.VaultClient
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 @Component
 class RetrofitConfiguration {
