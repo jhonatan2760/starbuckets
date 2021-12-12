@@ -10,12 +10,6 @@ data class ProductRequest(
 
     companion object {
 
-        fun toEntity(request: ProductRequest) = Product(
-            name = request.name,
-            description = request.description,
-            price = request.price
-        )
-
         fun toProduct(request: ProductRequest) = Product(
             name = request.name,
             description = request.description,
