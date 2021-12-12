@@ -1,5 +1,6 @@
 package br.com.jhonatansouza.starbuckets.service
 
+import br.com.jhonatansouza.starbuckets.enum.PaymentEnum
 import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.PaymentType
 import br.com.jhonatansouza.starbuckets.model.request.CreditCardRequest
@@ -25,7 +26,7 @@ class PaymentTypeService(private val repository: PaymentTypeRepository,
                 brand = "VISA"
             )
         ).execute()
-        if (vault.isSuccessful){
+        if (vault.isSuccessful && payment.cardType == PaymentEnum.DEBIT){
             return repository.save(payment)
         }
         return throw Exception("tente novamente!")
