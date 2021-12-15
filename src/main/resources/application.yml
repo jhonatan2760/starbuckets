@@ -1,10 +1,8 @@
 server:
   port: 8080
-spring:
-  config:
-    activate:
-      on-profile: test
 
+spring:
+  profiles: test
   datasource:
     url: "jdbc:h2:mem:testdb"
     driverClassName: "org.h2.Driver"
@@ -21,19 +19,16 @@ spring:
 ---
 
 spring:
-  config:
-    activate:
-      on-profile: local
+  profiles: local
   datasource:
-    url: "condominio varanda nova america"
-    driverClassName: "org.hibernate.dialect.MariaDBDialect"
+    url: "jdbc:mysql://localhost:3306/starbuckets?enabledTLSProtocols=TLSv1.2"
     username: "root"
     password: "DDFXuZEUgjgiPLKahEOm2leE5ZduhVfoSYuzGJWtkFGprTM4WWoRp40hRbp2"
     jpa:
       database-platform: "org.hibernate.dialect.MariaDBDialect"
       hibernate:
         ddl-auto: "create"
-    h2:
-      console:
-        enabled: true
-        path: "/h2-console"
+        user-new-id-generator-mappings: true
+
+
+---
