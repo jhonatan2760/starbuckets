@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
 class StarbucketsApplication {
-}
-
     fun main(args: Array<String>) {
         runApplication<StarbucketsApplication>(*args)
     }
+}
+
