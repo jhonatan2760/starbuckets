@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.repository
 
-import br.com.jhonatansouza.starbuckets.model.PaymentType
+import br.com.jhonatansouza.starbuckets.model.entity.PaymentType
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

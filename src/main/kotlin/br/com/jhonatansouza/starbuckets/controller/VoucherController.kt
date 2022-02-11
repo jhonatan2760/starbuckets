@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.controller
 
-import br.com.jhonatansouza.starbuckets.model.Voucher
+import br.com.jhonatansouza.starbuckets.model.entity.Voucher
 import br.com.jhonatansouza.starbuckets.model.request.VoucherRequest
 import br.com.jhonatansouza.starbuckets.model.response.VoucherResponse
 import br.com.jhonatansouza.starbuckets.service.VoucherService

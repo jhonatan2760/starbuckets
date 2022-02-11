@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.model.response
 
-import br.com.jhonatansouza.starbuckets.model.Voucher
+import br.com.jhonatansouza.starbuckets.model.entity.Voucher
 import java.time.LocalDateTime
 
 data class VoucherResponse(

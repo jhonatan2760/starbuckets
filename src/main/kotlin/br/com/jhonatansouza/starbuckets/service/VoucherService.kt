@@ -1,7 +1,7 @@
 package br.com.jhonatansouza.starbuckets.service
 
 import br.com.jhonatansouza.starbuckets.exception.GenericException
-import br.com.jhonatansouza.starbuckets.model.Voucher
+import br.com.jhonatansouza.starbuckets.model.entity.Voucher
 import br.com.jhonatansouza.starbuckets.repository.VoucherRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service

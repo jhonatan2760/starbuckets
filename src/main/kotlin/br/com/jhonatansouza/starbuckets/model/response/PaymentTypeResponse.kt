@@ -2,7 +2,7 @@ package br.com.jhonatansouza.starbuckets.model.response
 
 import br.com.jhonatansouza.starbuckets.enum.IssuerEnum
 import br.com.jhonatansouza.starbuckets.enum.PaymentEnum
-import br.com.jhonatansouza.starbuckets.model.PaymentType
+import br.com.jhonatansouza.starbuckets.model.entity.PaymentType
 
 data class PaymentTypeResponse(
     val id: Long?,

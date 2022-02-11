@@ -1,7 +1,7 @@
 package br.com.jhonatansouza.starbuckets.model.request
 
 import br.com.jhonatansouza.starbuckets.enum.UserEnum
-import br.com.jhonatansouza.starbuckets.model.User
+import br.com.jhonatansouza.starbuckets.model.entity.User
 
 data class UserRequest(
     val name: String,

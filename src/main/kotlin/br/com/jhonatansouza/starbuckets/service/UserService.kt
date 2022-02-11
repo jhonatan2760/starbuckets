@@ -3,13 +3,12 @@ package br.com.jhonatansouza.starbuckets.service
 import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.exception.UserException
 import br.com.jhonatansouza.starbuckets.exception.UserNotFoundException
-import br.com.jhonatansouza.starbuckets.model.User
+import br.com.jhonatansouza.starbuckets.model.entity.User
 import br.com.jhonatansouza.starbuckets.repository.UserRepository
 import br.com.jhonatansouza.starbuckets.utils.SecurityComponent
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
-import java.sql.SQLIntegrityConstraintViolationException
 
 @Service
 class UserService(val repository: UserRepository, private val securityComponent: SecurityComponent) {
