@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.controller
 
-import br.com.jhonatansouza.starbuckets.model.User
+import br.com.jhonatansouza.starbuckets.model.entity.User
 import br.com.jhonatansouza.starbuckets.model.request.UserRequest
 import br.com.jhonatansouza.starbuckets.model.response.UserResponse
 import br.com.jhonatansouza.starbuckets.service.UserService
@@ -40,7 +40,7 @@ class UserController(private val service: UserService, private val client: Vault
     }
 
     @PutMapping("/{id}")
-    fun UpadateUser(
+    fun updateUser(
         @PathVariable id: Long,
         @RequestBody user: User
     ): ResponseEntity<Unit> {

@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.model.request
 
-import br.com.jhonatansouza.starbuckets.model.Product
+import br.com.jhonatansouza.starbuckets.model.entity.Product
 
 data class ProductRequest(
     val name: String,

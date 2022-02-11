@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.model.response
 
-import br.com.jhonatansouza.starbuckets.model.User
+import br.com.jhonatansouza.starbuckets.model.entity.User
 
 data class UserResponse(
     val id: Long?,

@@ -2,16 +2,13 @@ package br.com.jhonatansouza.starbuckets.service
 
 import br.com.jhonatansouza.starbuckets.enum.IssuerEnum
 import br.com.jhonatansouza.starbuckets.enum.PaymentEnum
-import br.com.jhonatansouza.starbuckets.model.PaymentType
+import br.com.jhonatansouza.starbuckets.model.entity.PaymentType
 import br.com.jhonatansouza.starbuckets.repository.PaymentTypeRepository
 import br.com.jhonatansouza.starbuckets.service.clients.VaultClient
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.whenever
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.internal.verification.Calls
 import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.junit.jupiter.MockitoSettings
 import org.mockito.quality.Strictness

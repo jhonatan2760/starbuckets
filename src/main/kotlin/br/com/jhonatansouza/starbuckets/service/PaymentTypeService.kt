@@ -1,8 +1,10 @@
 package br.com.jhonatansouza.starbuckets.service
 
+import br.com.jhonatansouza.starbuckets.converter.PaymentMapper
 import br.com.jhonatansouza.starbuckets.enum.PaymentEnum
 import br.com.jhonatansouza.starbuckets.exception.GenericException
-import br.com.jhonatansouza.starbuckets.model.PaymentType
+import br.com.jhonatansouza.starbuckets.model.dto.PaymentTypeDTO
+import br.com.jhonatansouza.starbuckets.model.entity.PaymentType
 import br.com.jhonatansouza.starbuckets.model.request.CreditCardRequest
 import br.com.jhonatansouza.starbuckets.repository.PaymentTypeRepository
 import br.com.jhonatansouza.starbuckets.service.clients.VaultClient
@@ -11,23 +13,25 @@ import org.springframework.stereotype.Service
 
 @Service
 class PaymentTypeService(private val repository: PaymentTypeRepository,
-                         private val vaultClient: VaultClient) {
+                         private val vaultClient: VaultClient,
+                         private val converter: PaymentMapper
+                         ) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    fun create(payment: PaymentType, cardNumber: String, expirationDate: String): PaymentType {
+    fun create(payment: PaymentTypeDTO, cardNumber: String, expirationDate: String): PaymentTypeDTO {
         logger.info("Save payment Type to database")
         val vault = vaultClient.createCardToken(
             CreditCardRequest(
-                 "5172 8781 3263 0690" ,
-                cvv = "192",
+                 payment.cardNumber,
+                cvv = payment.cvv,
                 holderName = payment.holderName,
                 expireDate = expirationDate,
-                brand = "VISA"
+                brand = payment.issuer.name
             )
         ).execute()
         if (vault.isSuccessful && payment.cardType == PaymentEnum.DEBIT){
-            return repository.save(payment)
+            return repository.save(converter.toEntity(payment)) as PaymentTypeDTO
         }
         return throw Exception("tente novamente!")
 
@@ -47,11 +51,11 @@ class PaymentTypeService(private val repository: PaymentTypeRepository,
         }
     }
 
-    fun update(id: Long, payment: PaymentType) {
+    fun update(id: Long, payment: PaymentTypeDTO) {
         logger.info("update payment type by id")
         if (this.getById(id) != null) {
-            delete(id)
-          //  create(payment)
+            repository.save(converter.toEntity(payment))
+
         } else {
             throw GenericException("User not find with id $id")
         }

@@ -1,4 +1,4 @@
-package br.com.jhonatansouza.starbuckets.model
+package br.com.jhonatansouza.starbuckets.model.entity
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.util.*
