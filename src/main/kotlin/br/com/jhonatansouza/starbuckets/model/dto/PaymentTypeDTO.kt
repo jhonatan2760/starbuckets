@@ -1,16 +1,9 @@
-package br.com.jhonatansouza.starbuckets.model.entity
+package br.com.jhonatansouza.starbuckets.model.dto
 
 import br.com.jhonatansouza.starbuckets.enum.IssuerEnum
 import br.com.jhonatansouza.starbuckets.enum.PaymentEnum
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
 
-@Entity
-data class PaymentType(
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+data class PaymentTypeDTO(
     val id: Long? = 0,
     val holderName: String,
     val cardName: String,

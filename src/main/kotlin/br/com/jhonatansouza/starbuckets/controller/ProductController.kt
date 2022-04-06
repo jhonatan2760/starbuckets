@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.controller
 
-import br.com.jhonatansouza.starbuckets.model.Product
+import br.com.jhonatansouza.starbuckets.converter.ProductMapper
 import br.com.jhonatansouza.starbuckets.model.request.ProductRequest
 import br.com.jhonatansouza.starbuckets.model.response.ProductResponse
 import br.com.jhonatansouza.starbuckets.service.ProductService
@@ -11,7 +11,9 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/api/product/v1")
-class ProductController(private var service: ProductService) {
+class ProductController(
+    private var service: ProductService
+    ) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -34,9 +36,12 @@ class ProductController(private var service: ProductService) {
     }
 
     @PutMapping("/{id}")
-    fun updateProduct(@PathVariable id: Long, @RequestBody product: Product): ResponseEntity<Unit> {
+    fun updateProduct(
+        @PathVariable id: Long,
+        @RequestBody product: ProductRequest
+    ): ResponseEntity<Unit> {
         this.logger.info("")
-        return ResponseEntity.ok(service.update(id, product))
+        return ResponseEntity.ok(service.update(id, ProductRequest.toProduct(product)))
     }
 
     @DeleteMapping("/{id}")

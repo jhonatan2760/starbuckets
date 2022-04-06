@@ -1,6 +1,7 @@
 package br.com.jhonatansouza.starbuckets.controller
 
-import br.com.jhonatansouza.starbuckets.model.User
+import br.com.jhonatansouza.starbuckets.model.dto.UserDTO
+import br.com.jhonatansouza.starbuckets.model.entity.User
 import br.com.jhonatansouza.starbuckets.model.request.UserRequest
 import br.com.jhonatansouza.starbuckets.model.response.UserResponse
 import br.com.jhonatansouza.starbuckets.service.UserService
@@ -12,22 +13,19 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/api/v1/user")
-class UserController(private val service: UserService, private val client: VaultClient) {
+class UserController(private val service: UserService) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @PostMapping
     fun create(
-        @RequestBody userRequest: UserRequest,
+        @RequestBody request: UserRequest,
         uri: UriComponentsBuilder
     ): ResponseEntity<Any> {
-        logger.info("creating user name${userRequest.name}")
+        logger.info("creating user name${request.name}")
         return ResponseEntity.created(
-            uri.path("/api/user/v1/{id}").build(
-                service.create(
-                    UserRequest.toUser(userRequest)
-                ).id
-            )
+            uri.path("/api/user/v1/{id}").
+            build(service.create(UserRequest.toUser(request)).name)
         ).build()
     }
 
@@ -40,9 +38,9 @@ class UserController(private val service: UserService, private val client: Vault
     }
 
     @PutMapping("/{id}")
-    fun UpadateUser(
+    fun updateUser(
         @PathVariable id: Long,
-        @RequestBody user: User
+        @RequestBody user: UserDTO
     ): ResponseEntity<Unit> {
         logger.info("looking for user by id and updating, user=$id")
         return ResponseEntity.ok(service.upadate(id, user))

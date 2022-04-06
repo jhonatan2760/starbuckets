@@ -1,6 +1,5 @@
 package br.com.jhonatansouza.starbuckets.controller
 
-import br.com.jhonatansouza.starbuckets.model.PaymentType
 import br.com.jhonatansouza.starbuckets.model.request.PaymentTypeRequest
 import br.com.jhonatansouza.starbuckets.model.response.PaymentTypeResponse
 import br.com.jhonatansouza.starbuckets.service.PaymentTypeService
@@ -24,7 +23,7 @@ class PaymentTypeController(private val service: PaymentTypeService) {
         return ResponseEntity.created(
             uri.path("/api/payment/type/v1/{id}").build(
                 service.create(
-                    PaymentTypeRequest.toPaymenType(paymentTypeRequest),
+                    PaymentTypeRequest.toPaymentType(paymentTypeRequest),
                     paymentTypeRequest.cardNumber,
                     paymentTypeRequest.expirationDate
                 ).id
@@ -45,12 +44,16 @@ class PaymentTypeController(private val service: PaymentTypeService) {
     }
 
     @PutMapping("/{id}")
-    fun UpadateUser(
+    fun updateUser(
         @PathVariable id: Long,
-        @RequestBody paymentType: PaymentType
+        @RequestBody paymentType: PaymentTypeRequest
     ): ResponseEntity<Unit> {
         logger.info("looking for payment type by id and updating, user=$id")
-        return ResponseEntity.ok(service.update(id, paymentType))
+        return ResponseEntity.ok(
+            service.update(id,
+                PaymentTypeRequest.toPaymentType(paymentType)
+            )
+        )
     }
 
     @DeleteMapping("/{id}")

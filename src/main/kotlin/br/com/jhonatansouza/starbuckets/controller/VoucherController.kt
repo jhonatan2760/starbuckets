@@ -1,6 +1,6 @@
 package br.com.jhonatansouza.starbuckets.controller
 
-import br.com.jhonatansouza.starbuckets.model.Voucher
+import br.com.jhonatansouza.starbuckets.model.entity.Voucher
 import br.com.jhonatansouza.starbuckets.model.request.VoucherRequest
 import br.com.jhonatansouza.starbuckets.model.response.VoucherResponse
 import br.com.jhonatansouza.starbuckets.service.VoucherService
@@ -23,7 +23,7 @@ class VoucherController(private val service: VoucherService) {
         logger.info("creating voucher name${voucherRequest.name}")
         return ResponseEntity.created(
             uri.path("/api/voucher/v1/{id}").build(service.create(
-                VoucherRequest.toVoucherRequest(voucherRequest)
+                VoucherRequest.toVoucher(voucherRequest)
             ).id)).build()
     }
 
@@ -38,10 +38,10 @@ class VoucherController(private val service: VoucherService) {
     @PutMapping("/{id}")
     fun UpadateUser(
         @PathVariable id: Long,
-        @RequestBody voucher: Voucher
+        @RequestBody voucher: VoucherRequest
     ): ResponseEntity<Unit> {
         logger.info("looking for user by id and updating, user=$id")
-        return ResponseEntity.ok(service.update(id, voucher))
+        return ResponseEntity.ok(service.update(id, VoucherRequest.toVoucher(voucher)))
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,7 @@
 package br.com.jhonatansouza.starbuckets.model.request
 
-import br.com.jhonatansouza.starbuckets.model.Voucher
+import br.com.jhonatansouza.starbuckets.model.dto.VoucherDTO
+import br.com.jhonatansouza.starbuckets.model.entity.Voucher
 import java.time.LocalDateTime
 
 data class VoucherRequest(
@@ -12,7 +13,7 @@ data class VoucherRequest(
     val active: Boolean
 ) {
     companion object{
-        fun toVoucherRequest(request: VoucherRequest) = Voucher(
+        fun toVoucher(request: VoucherRequest) = VoucherDTO(
             name = request.name,
             userId = request.userId,
             value = request.value,
