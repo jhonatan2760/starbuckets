@@ -1,5 +1,6 @@
 package br.com.jhonatansouza.starbuckets.service
 
+import br.com.jhonatansouza.starbuckets.enum.PaymentEnum
 import br.com.jhonatansouza.starbuckets.exception.PurchaseException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -12,14 +13,14 @@ class PurchaseService(
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    fun createPurchase(userId: Long, productId: Long){
-        this.logger.info("action= criando transação productId=$productId, userId=$userId")
+    fun createPurchase(userId: Long, productId: Long, paymentType: PaymentEnum){
+        this.logger.info("action= creation transaction productId=$productId, userId=$userId")
         val user = this.userService.getByid(userId)
         val product = this.productService.getById(productId)
         if (user.active && product.price > 0.0){
-         this.logger.info("action= usuario ativo produto com valor correto")
+         this.logger.info("action= active user product with correct value")
         } else {
-           throw PurchaseException("não autorizado compra invalida")
+           throw PurchaseException("unauthorized purchase invalid")
         }
     }
 

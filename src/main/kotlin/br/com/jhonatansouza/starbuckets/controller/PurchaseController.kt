@@ -1,13 +1,12 @@
 package br.com.jhonatansouza.starbuckets.controller
 
 import br.com.jhonatansouza.starbuckets.enum.PaymentEnum
-import br.com.jhonatansouza.starbuckets.model.entity.PaymentType
+import br.com.jhonatansouza.starbuckets.model.request.ProductRequest
 import br.com.jhonatansouza.starbuckets.service.PurchaseService
 import org.slf4j.LoggerFactory
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("api/v1/purchase")
@@ -21,8 +20,9 @@ class PurchaseController(
     fun purchase(
         @PathVariable productId: Long,
         @PathVariable userId: Long,
-        @PathVariable paymentType: PaymentEnum
-    ){
-
+        @PathVariable paymentType: PaymentEnum,
+    ) {
+        logger.info("action=validating customer transaction")
+        ResponseEntity.ok(purchaseService.createPurchase(userId,productId,paymentType))
     }
 }
