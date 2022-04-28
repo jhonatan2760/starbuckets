@@ -1,28 +1,32 @@
 package br.com.jhonatansouza.starbuckets.controller
 
-import br.com.jhonatansouza.starbuckets.enum.PaymentEnum
-import br.com.jhonatansouza.starbuckets.model.request.ProductRequest
+import br.com.jhonatansouza.starbuckets.converter.PurchaseMapper
+import br.com.jhonatansouza.starbuckets.model.Purchase
+import br.com.jhonatansouza.starbuckets.model.request.PostPurchaseRequest
 import br.com.jhonatansouza.starbuckets.service.PurchaseService
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
-@RequestMapping("api/v1/purchase")
+@RequestMapping("/api/v1/purchase")
 class PurchaseController(
-    private val purchaseService: PurchaseService
+    private val purchaseService: PurchaseService,
+    private val purchaseMapper: PurchaseMapper
 ) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    @PostMapping("/product/{productId}/user/{userId}/paymentType/{paymentType}")
-    fun purchase(
-        @PathVariable productId: Long,
-        @PathVariable userId: Long,
-        @PathVariable paymentType: PaymentEnum,
-    ) {
-        logger.info("action=validating customer transaction")
-        ResponseEntity.ok(purchaseService.createPurchase(userId,productId,paymentType))
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun purchase(@RequestBody request: PostPurchaseRequest){
+        purchaseService.create(purchaseMapper.toEntity(request))
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun findAll(): ResponseEntity<List<Purchase>>{
+       return ResponseEntity.ok(purchaseService.findAll().toList())
     }
 }

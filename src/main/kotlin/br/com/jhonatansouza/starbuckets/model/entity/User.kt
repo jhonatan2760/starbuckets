@@ -1,11 +1,10 @@
 package br.com.jhonatansouza.starbuckets.model.entity
 
 import br.com.jhonatansouza.starbuckets.enum.UserEnum
+
 import javax.persistence.*
 
-@Entity(
-
-)
+@Entity(name = "user_starbuckets")
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

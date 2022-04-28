@@ -4,8 +4,11 @@ import br.com.jhonatansouza.starbuckets.converter.ProductMapper
 import br.com.jhonatansouza.starbuckets.exception.GenericException
 import br.com.jhonatansouza.starbuckets.model.dto.ProductDTO
 import br.com.jhonatansouza.starbuckets.model.entity.Product
+import br.com.jhonatansouza.starbuckets.model.entity.User
 import br.com.jhonatansouza.starbuckets.repository.ProductRepository
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -60,5 +63,13 @@ class ProductService(
 
         if (product.price < 1)
             throw GenericException(message = "price cannot be less than 1 real")
+    }
+
+    fun findAllById(productId: Set<Long>): List<Product> {
+        return repository.findAllById(productId).toList()
+    }
+
+    fun findAll(pageable: Pageable): Page<Product>{
+        return repository.findAll(pageable)
     }
 }

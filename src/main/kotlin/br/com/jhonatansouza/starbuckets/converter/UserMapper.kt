@@ -17,4 +17,15 @@ class UserMapper : Mapper<UserDTO, User>(){
             active = dto.active
         )
     }
+
+    fun toDto(user: User): UserDTO{
+        return UserDTO(
+            name = user.name,
+            email = user.email,
+            password = user.password,
+            birthDate = user.birthDate,
+            type = user.type,
+            active = user.active
+        )
+    }
 }

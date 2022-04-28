@@ -2,7 +2,7 @@ package br.com.jhonatansouza.starbuckets.model.entity
 
 import javax.persistence.*
 
-@Entity
+@Entity(name = "product")
 data class Product(
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

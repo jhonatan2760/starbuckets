@@ -10,6 +10,8 @@ import br.com.jhonatansouza.starbuckets.repository.UserRepository
 import br.com.jhonatansouza.starbuckets.utils.SecurityComponent
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -26,7 +28,7 @@ class UserService(
         validateFunction(user)
         logger.info("Save user to database")
         try {
-            return this.repository.save(converter.toEntity(user)) as UserDTO
+            return converter.toDto(this.repository.save(converter.toEntity(user)))
         } catch (ex: DataIntegrityViolationException) {
             logger.info("User already has an account, ${user.email}")
             throw UserException("Você já possuí uma conta, esqueceu sua senha?")
@@ -68,6 +70,16 @@ class UserService(
         val hashPassword = this.securityComponent.stringToMd5(user.password)
         if (!hashPassword.isNullOrBlank())
             user.password = hashPassword
+    }
+
+    fun validateUser(userId: Long){
+        val user = repository.findById(userId)
+        if (user.isEmpty)
+            throw GenericException(message = "user not fund")
+    }
+
+    fun findAll(pageable: Pageable): Page<User> {
+        return repository.findAll(pageable)
     }
 
 }
