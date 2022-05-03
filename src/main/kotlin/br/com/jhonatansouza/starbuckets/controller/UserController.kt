@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
@@ -20,7 +21,7 @@ class UserController(private val service: UserService) {
 
     @PostMapping
     fun create(
-        @RequestBody request: UserRequest,
+        @RequestBody @Validated request: UserRequest,
         uri: UriComponentsBuilder
     ): ResponseEntity<Any> {
         logger.info("creating user name${request.name}")
@@ -44,7 +45,7 @@ class UserController(private val service: UserService) {
         @RequestBody user: UserRequest
     ): ResponseEntity<Unit> {
         logger.info("looking for user by id and updating, user=$id")
-        return ResponseEntity.ok(service.upadate(id, UserRequest.toUser(user)))
+        return ResponseEntity.ok(service.update(id, UserRequest.toUser(user)))
     }
 
     @DeleteMapping("/{id}")

@@ -17,9 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder
 @RestController
 @RequestMapping("/api/product/v1")
 class ProductController(
-    private var service: ProductService,
-    private val userService: UserService
-    ) {
+    private var service: ProductService) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 

@@ -43,7 +43,6 @@ class UserService(
         } else {
             throw UserNotFoundException("Usuário não encontrado no sistema.")
         }
-
     }
 
     fun delete(id: Long) {
@@ -55,7 +54,7 @@ class UserService(
         }
     }
 
-    fun upadate(id: Long, user: UserDTO) {
+    fun update(id: Long, user: UserDTO) {
         if (getByid(id) != null) {
             delete(id)
             create(user)

@@ -69,7 +69,7 @@ class ProductService(
         return repository.findAllById(productId).toList()
     }
 
-    fun findAll(pageable: Pageable): Page<Product>{
+    fun findAll(pageable: Pageable): Page<Product> {
         return repository.findAll(pageable)
     }
 }
