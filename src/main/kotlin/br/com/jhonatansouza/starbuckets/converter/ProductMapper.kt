@@ -11,7 +11,8 @@ class ProductMapper : Mapper<ProductDTO, Product>() {
         return Product(
             name = dto.name,
             description = dto.description,
-            price = dto.price
+            price = dto.price,
+            status = dto.status
         )
     }
 

@@ -32,8 +32,8 @@ class PaymentTypeService(
                 expireDate = expirationDate,
                 brand = payment.issuer.name
             )
-        ).execute()
-        if (vault.isSuccessful && payment.cardType == PaymentEnum.DEBIT) {
+        ).isSuccessful
+        if (vault) {
             return repository.save(converter.toEntity(payment)) as PaymentTypeDTO
         }
         return throw Exception("tente novamente!")

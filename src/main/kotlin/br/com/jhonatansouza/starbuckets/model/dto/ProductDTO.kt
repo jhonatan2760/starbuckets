@@ -7,5 +7,6 @@ data class ProductDTO(
     @Column(unique = true)
     var name: String,
     val description: String,
-    val price: Double
+    val price: Double,
+    val status: String?
 )

@@ -5,7 +5,8 @@ import br.com.jhonatansouza.starbuckets.model.dto.ProductDTO
 data class ProductRequest(
     val name: String,
     val description: String,
-    val price: Double
+    val price: Double,
+    var status: String?
 ) {
 
     companion object {
@@ -13,7 +14,8 @@ data class ProductRequest(
         fun toProduct(request: ProductRequest) = ProductDTO(
             name = request.name,
             description = request.description,
-            price = request.price
+            price = request.price,
+            status = request.status
         )
     }
 }

@@ -6,7 +6,8 @@ data class ProductResponse(
     val id: Long?,
     val name: String,
     val description: String,
-    val price: Double
+    val price: Double,
+    val status: String?
 ) {
 
     companion object {
@@ -14,7 +15,8 @@ data class ProductResponse(
             id = entity.id,
             name = entity.name,
             description = entity.description,
-            price = entity.price
+            price = entity.price,
+            status = entity.status
         )
     }
 

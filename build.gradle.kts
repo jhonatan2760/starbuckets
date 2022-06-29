@@ -36,6 +36,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("mysql:mysql-connector-java:8.0.22")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
     testImplementation("com.h2database:h2:1.4.200")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.nhaarman:mockito-kotlin:1.6.0")

@@ -28,7 +28,7 @@ class PaymentTypeController(private val service: PaymentTypeService) {
                     paymentTypeRequest.expirationDate
                 ).id
             )
-        ).build()
+        ).body("seu cartão foi criado com sucesso!!!")
     }
 
     @GetMapping("/{id}")

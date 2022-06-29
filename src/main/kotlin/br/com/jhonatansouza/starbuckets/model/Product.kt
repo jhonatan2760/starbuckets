@@ -11,5 +11,6 @@ data class Product(
     var name: String,
     @Column(length = 2000)
     val description: String,
-    val price: Double
+    val price: Double,
+    val status: String?
 )
