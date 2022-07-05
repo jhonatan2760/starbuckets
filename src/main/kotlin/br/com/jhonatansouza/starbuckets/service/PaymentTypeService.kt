@@ -3,6 +3,7 @@ package br.com.jhonatansouza.starbuckets.service
 import br.com.jhonatansouza.starbuckets.converter.PaymentMapper
 import br.com.jhonatansouza.starbuckets.enum.PaymentEnum
 import br.com.jhonatansouza.starbuckets.exception.GenericException
+import br.com.jhonatansouza.starbuckets.exception.PaymentTypeException
 import br.com.jhonatansouza.starbuckets.model.dto.PaymentTypeDTO
 import br.com.jhonatansouza.starbuckets.model.entity.PaymentType
 import br.com.jhonatansouza.starbuckets.model.entity.User
@@ -22,7 +23,7 @@ class PaymentTypeService(
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    fun create(payment: PaymentTypeDTO, cardNumber: String, expirationDate: String): PaymentTypeDTO {
+    fun create(payment: PaymentTypeDTO, cardNumber: String, expirationDate: String): PaymentType {
         logger.info("Save payment Type to database")
         val vault = vaultClient.createCardToken(
             CreditCardRequest(
@@ -32,11 +33,12 @@ class PaymentTypeService(
                 expireDate = expirationDate,
                 brand = payment.issuer.name
             )
-        ).isSuccessful
+        ).execute().code() == 415
         if (vault) {
-            return repository.save(converter.toEntity(payment)) as PaymentTypeDTO
+            return repository.save(converter.toEntity(payment)) as PaymentType
         }
-        return throw Exception("tente novamente!")
+        this.logger.error("PaymentTypeService -> Unable to register creditcard.")
+        throw PaymentTypeException("Não foi possível registrar o meio de pagamento!")
 
     }
 

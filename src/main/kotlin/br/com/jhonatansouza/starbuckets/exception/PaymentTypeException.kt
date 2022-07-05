@@ -1,4 +1,3 @@
 package br.com.jhonatansouza.starbuckets.exception
 
-class PaymentTypeException {
-}
+class PaymentTypeException(message: String) : RuntimeException(message)
